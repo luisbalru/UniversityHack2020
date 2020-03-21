@@ -69,5 +69,5 @@ xgb1 = XGBClassifier(
 #dtrain = xgb.DMatrix(X_train,label = y_train)
 #dtest = xgb.DMatrix(X_test, )
 model = xgb1.fit(X_train,y_train)
-pred = model.predict(X_train)
-print(accuracy_score(pred,y_train))
+pred = model.predict(X_test)
+print(accuracy_score(pred,y_test))
