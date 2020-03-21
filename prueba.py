@@ -64,10 +64,10 @@ from xgboost.sklearn import XGBClassifier
 from sklearn.metrics import accuracy_score
 
 
-X_train, y_train = IPF(X_train, y_train)
-print("Numero de instancias: " + str(len(X_train)))
-print("Instancias por clase:")
-print(np.unique(y_train,return_counts=True))
+#X_train, y_train = IPF(X_train, y_train)
+#print("Numero de instancias: " + str(len(X_train)))
+#print("Instancias por clase:")
+#print(np.unique(y_train,return_counts=True))
 
 xgb1 = XGBClassifier(
  learning_rate =0.1,
