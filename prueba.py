@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 from ipf import IPF
 from imblearn.over_sampling import SMOTE
+from sklearn import preprocessing
 import seaborn as sns
 '''
 def modelfit(alg, dtrain, predictors,useTrainCV=True, cv_folds=5, early_stopping_rounds=50):
