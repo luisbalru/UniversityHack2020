@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
 from imblearn.over_sampling import SMOTE
 import seaborn as sns
 '''
@@ -41,6 +42,9 @@ X = data2.iloc[:,0:54]
 y = data2.iloc[:,54:55]
 y = np.ravel(y)
 dummiesCID = pd.get_dummies(X.CADASTRALQUALITYID)
+pca = PCA(n_components=12)
+dummiesCID = pca.fit_transform(dummiesCID)
+dummiesCID = pd.DataFrame(dummiesCID)
 X = X.drop(['CADASTRALQUALITYID'], axis=1)
 X = pd.concat([X,dummiesCID],axis=1)
 X = np.array(X)
@@ -71,3 +75,4 @@ xgb1 = XGBClassifier(
 model = xgb1.fit(X_train,y_train)
 pred = model.predict(X_test)
 print(accuracy_score(pred,y_test))
+'''
