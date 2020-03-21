@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
+from ipf import IPF
 from imblearn.over_sampling import SMOTE
 import seaborn as sns
 '''
@@ -46,6 +47,8 @@ pca = PCA(n_components=12)
 dummiesCID = pca.fit_transform(dummiesCID)
 dummiesCID = pd.DataFrame(dummiesCID)
 X = X.drop(['CADASTRALQUALITYID'], axis=1)
+#SCALING
+X = preprocessing.scale(X)
 X = pd.concat([X,dummiesCID],axis=1)
 X = np.array(X)
 X,y = SMOTE(sampling_strategy = {"INDUSTRIAL": 60000, "PUBLIC": 60000,"RETAIL":60000,"OFFICE":60000,"OTHER":60000, "AGRICULTURE":60000}, random_state=123456789, n_jobs=20, k_neighbors=5).fit_resample(X,y)
@@ -57,6 +60,12 @@ X_train, X_test, y_train, y_test = train_test_split(X,y, test_size = 0.3, strati
 import xgboost as xgb
 from xgboost.sklearn import XGBClassifier
 from sklearn.metrics import accuracy_score
+
+
+#X_train, y_train = IPF(X_train, y_train)
+#print("Numero de instancias: " + str(len(X_train)))
+#print("Instancias por clase:")
+#print(np.unique(y_train,return_counts=True))
 
 xgb1 = XGBClassifier(
  learning_rate =0.1,
