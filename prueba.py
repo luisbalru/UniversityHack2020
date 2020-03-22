@@ -5,6 +5,7 @@ from sklearn.decomposition import PCA
 from ipf import IPF
 from imblearn.over_sampling import SMOTE
 from anomaly_cleaning import cleanAnomalies
+from imblearn.under_sampling import EditedNearestNeighbours
 
 from sklearn import preprocessing
 import seaborn as sns
@@ -95,6 +96,13 @@ y_train = np.concatenate((y_train,y5), axis=0)
 y_train = np.concatenate((y_train,y6), axis=0)
 y_train = np.concatenate((y_train,y7), axis=0)
 
+print("Instancias por clase:")
+print(np.unique(y_train,return_counts=True))
+
+
+print("EditedNearestNeighbours...")
+X_train, y_train = EditedNearestNeighbours(sampling_strategy="not minority", n_neighbors=15, n_jobs=20, kind_sel="mode").fit_resample(X_train, y_train)
+print("Numero de instancias: " + str(len(X_train)))
 print("Instancias por clase:")
 print(np.unique(y_train,return_counts=True))
 
