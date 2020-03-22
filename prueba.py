@@ -52,9 +52,9 @@ dummiesCID = pd.get_dummies(X.CADASTRALQUALITYID)
 pca = PCA(n_components=12)
 dummiesCID = pca.fit_transform(dummiesCID)
 dummiesCID = pd.DataFrame(dummiesCID)
-X = X.drop(['CADASTRALQUALITYID'], axis=1)
 '''
 #SCALING
+X = X.drop(['CADASTRALQUALITYID'], axis=1)
 X = preprocessing.scale(X)
 X = pd.DataFrame(X)
 X = pd.concat([X,dummiesCID],axis=1)
