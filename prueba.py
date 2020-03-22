@@ -55,9 +55,47 @@ X = pd.concat([X,dummiesCID],axis=1)
 X = np.array(X)
 X,y = SMOTE(sampling_strategy = {"INDUSTRIAL": 60000, "PUBLIC": 60000,"RETAIL":60000,"OFFICE":60000,"OTHER":60000, "AGRICULTURE":60000}, random_state=123456789, n_jobs=20, k_neighbors=5).fit_resample(X,y)
 
+
+
+
+
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(X,y, test_size = 0.3, stratify=y,random_state=77145416)
+
+
+
+print("Cleaning anomalies...")
+ind_res = np.where(y_train=="RESIDENTIAL")[0]
+ind_ind = np.where(y_train=="INDUSTRIAL")[0]
+ind_pub = np.where(y_train=="PUBLIC")[0]
+ind_ret = np.where(y_train=="RETAIL")[0]
+ind_off = np.where(y_train=="OFFICE")[0]
+ind_ot = np.where(y_train=="OTHER")[0]
+ind_agr = np.where(y_train=="AGRICULTURE")[0]
+X1, y1 = cleanAnomalies(X_train[ind_res], y_train[ind_res])
+X2, y2 = cleanAnomalies(X_train[ind_ind], y_train[ind_ind])
+X3, y3 = cleanAnomalies(X_train[ind_pub], y_train[ind_pub])
+X4, y4 = cleanAnomalies(X_train[ind_ret], y_train[ind_ret])
+X5, y5 = cleanAnomalies(X_train[ind_off], y_train[ind_off])
+X6, y6 = cleanAnomalies(X_train[ind_ot], y_train[ind_ot])
+X7, y7 = cleanAnomalies(X_train[ind_agr], y_train[ind_agr])
+X_train = np.concatenate((X1,X2), axis=0)
+X_train = np.concatenate((X_train,X4), axis=0)
+X_train = np.concatenate((X_train,X5), axis=0)
+X_train = np.concatenate((X_train,X6), axis=0)
+X_train = np.concatenate((X_train,X7), axis=0)
+y_train = np.concatenate((y1,y2), axis=0)
+y_train = np.concatenate((y_train,y3), axis=0)
+y_train = np.concatenate((y_train,y4), axis=0)
+y_train = np.concatenate((y_train,y5), axis=0)
+y_train = np.concatenate((y_train,y6), axis=0)
+y_train = np.concatenate((y_train,y7), axis=0)
+
+print("Instancias por clase:")
+print(np.unique(y_train,return_counts=True))
+
+
 
 import xgboost as xgb
 from xgboost.sklearn import XGBClassifier
