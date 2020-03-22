@@ -154,5 +154,5 @@ gsearch3 = GridSearchCV(estimator = XGBClassifier(learning_rate =0.1, n_estimato
  min_child_weight=5, gamma=0, subsample=0.8, colsample_bytree=0.8,
  objective= 'multi:softprob', nthread=4, scale_pos_weight=1,seed=27),
  param_grid = param_test3, scoring='accuracy',n_jobs=4,iid=False, cv=5)
-gsearch3.fit(train[predictors],train[target])
+gsearch3.fit(X_train,y_train)
 print(gsearch3.cv_results_)
