@@ -47,7 +47,7 @@ X = data2.iloc[:,0:54]
 y = data2.iloc[:,54:55]
 y = np.ravel(y)
 dummiesCID = pd.get_dummies(X.CADASTRALQUALITYID)
-pca = PCA(n_components=0.95, svd_solver='full')
+pca = PCA(12)
 dummiesCID = pca.fit_transform(dummiesCID)
 dummiesCID = pd.DataFrame(dummiesCID)
 X = X.drop(['CADASTRALQUALITYID'], axis=1)
@@ -56,7 +56,7 @@ X = preprocessing.scale(X)
 X = pd.DataFrame(X)
 X = pd.concat([X,dummiesCID],axis=1)
 X = np.array(X)
-X,y = SMOTE(sampling_strategy = {"INDUSTRIAL": 60000, "PUBLIC": 60000,"RETAIL":60000,"OFFICE":60000,"OTHER":60000, "AGRICULTURE":60000}, random_state=123456789, n_jobs=20, k_neighbors=5).fit_resample(X,y)
+X,y = SMOTE(sampling_strategy = {"INDUSTRIAL": 60000, "PUBLIC": 50000,"RETAIL":60000,"OFFICE":60000,"OTHER":60000, "AGRICULTURE":60000}, random_state=123456789, n_jobs=20, k_neighbors=5).fit_resample(X,y)
 
 
 
