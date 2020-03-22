@@ -47,14 +47,19 @@ X = data2.iloc[:,0:54]
 y = data2.iloc[:,54:55]
 y = np.ravel(y)
 dummiesCID = pd.get_dummies(X.CADASTRALQUALITYID)
+
+'''
 pca = PCA(n_components=12)
 dummiesCID = pca.fit_transform(dummiesCID)
 dummiesCID = pd.DataFrame(dummiesCID)
 X = X.drop(['CADASTRALQUALITYID'], axis=1)
+'''
 #SCALING
 X = preprocessing.scale(X)
 X = pd.DataFrame(X)
 X = pd.concat([X,dummiesCID],axis=1)
+pca = PCA(n_components=0.95,svd_solver='full')
+X = pca.fit_transform(X)
 X = np.array(X)
 X,y = SMOTE(sampling_strategy = {"INDUSTRIAL": 60000, "PUBLIC": 60000,"RETAIL":60000,"OFFICE":60000,"OTHER":60000, "AGRICULTURE":60000}, random_state=123456789, n_jobs=20, k_neighbors=5).fit_resample(X,y)
 
@@ -99,13 +104,13 @@ y_train = np.concatenate((y_train,y7), axis=0)
 print("Instancias por clase:")
 print(np.unique(y_train,return_counts=True))
 
-
+'''
 print("EditedNearestNeighbours...")
 X_train, y_train = EditedNearestNeighbours(sampling_strategy="not minority", n_neighbors=15, n_jobs=20, kind_sel="mode").fit_resample(X_train, y_train)
 print("Numero de instancias: " + str(len(X_train)))
 print("Instancias por clase:")
 print(np.unique(y_train,return_counts=True))
-
+'''
 
 
 import xgboost as xgb
