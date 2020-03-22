@@ -2,10 +2,9 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
-from ipf import IPF
 from imblearn.over_sampling import SMOTE
 from anomaly_cleaning import cleanAnomalies
-from imblearn.under_sampling import EditedNearestNeighbours
+from sklearn.model_selection import GridSearchCV
 
 from sklearn import preprocessing
 import seaborn as sns
