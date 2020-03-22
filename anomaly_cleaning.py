@@ -12,7 +12,7 @@ def cleanAnomalies(X,y,perc=0.01):
     #detector = IForest(n_estimators=300, bootstrap=True, n_jobs=8, random_state=123456789, verbose=1).fit(X)
     #detector = LMDD(n_iter=50).fit(X) # Muy lento
     #detector = CBLOF(n_clusters=3, n_jobs=8).fit(X)
-    detector = KNN(n_neighbors=7, n_jobs=20).fit(X)
+    detector = KNN(n_neighbors=5, n_jobs=20).fit(X)
     sorted = np.argsort(detector.decision_scores_)[::-1]
     size = len(X)-int(perc*len(X))
     return X[sorted[:size]], y[sorted[:size]]
