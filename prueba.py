@@ -119,15 +119,15 @@ from sklearn.metrics import accuracy_score
 #print(np.unique(y_train,return_counts=True))
 '''
 xgb1 = XGBClassifier(
- learning_rate =0.1,
- n_estimators=1000,
- max_depth=5,
+ learning_rate =0.05,
+ n_estimators=1500,
+ max_depth=7,
  min_child_weight=1,
  gamma=0,
  subsample=0.8,
  colsample_bytree=0.8,
  objective= 'multi:softprob',
- nthread=4,
+ nthread=10,
  scale_pos_weight=1,
  seed=27)
 #dtrain = xgb.DMatrix(X_train,label = y_train)
