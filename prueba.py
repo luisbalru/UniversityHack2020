@@ -117,9 +117,9 @@ from sklearn.metrics import accuracy_score
 #print("Numero de instancias: " + str(len(X_train)))
 #print("Instancias por clase:")
 #print(np.unique(y_train,return_counts=True))
-
+'''
 xgb1 = XGBClassifier(
- learning_rate =0.1,
+ learning_rate =0.01,
  n_estimators=1000,
  max_depth=5,
  min_child_weight=5,
@@ -135,7 +135,7 @@ xgb1 = XGBClassifier(
 model = xgb1.fit(X_train,y_train)
 pred = model.predict(X_test)
 print(accuracy_score(pred,y_test))
-
+'''
 ## Tune max_depth and min_child_weight
 param_test1 = {
  'max_depth':range(3,10,2),
@@ -168,7 +168,7 @@ gsearch4 = GridSearchCV(estimator = XGBClassifier( learning_rate =0.1, n_estimat
  param_grid = param_test4, scoring='accuracy',n_jobs=4,iid=False, cv=5)
 gsearch4.fit(X_train,y_train)
 print(gsearch4.best_params_, gsearch4.best_score_)
-'''
+
 param_test6 = {
  'reg_alpha':[1e-5, 1e-2, 0.1, 1, 100]
 }
@@ -178,3 +178,4 @@ gsearch6 = GridSearchCV(estimator = XGBClassifier( learning_rate =0.1, n_estimat
  param_grid = param_test6, scoring='roc_auc',n_jobs=4,iid=False, cv=5)
 gsearch6.fit(X_train,y_train)
 print(gsearch6.best_params_, gsearch6.best_score_)
+'''
