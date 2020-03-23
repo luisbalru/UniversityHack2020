@@ -164,7 +164,7 @@ param_test4 = {
 }
 gsearch4 = GridSearchCV(estimator = XGBClassifier( learning_rate =0.1, n_estimators=177, max_depth=4,
  min_child_weight=6, gamma=0, subsample=0.8, colsample_bytree=0.8,
- objective= 'binary:logistic', nthread=4, scale_pos_weight=1,seed=27),
- param_grid = param_test4, scoring='roc_auc',n_jobs=4,iid=False, cv=5)
+ objective= 'multi:softprob', nthread=4, scale_pos_weight=1,seed=27),
+ param_grid = param_test4, scoring='accuracy',n_jobs=4,iid=False, cv=5)
 gsearch4.fit(X_train,y_train)
 print(gsearch4.best_params_, gsearch4.best_score_)
