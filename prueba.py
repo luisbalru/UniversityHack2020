@@ -120,13 +120,14 @@ from sklearn.metrics import accuracy_score
 '''
 xgb1 = XGBClassifier(
  learning_rate =0.05,
- n_estimators=1500,
+ n_estimators=1600,
  max_depth=7,
- min_child_weight=1,
+ min_child_weight=2,
  gamma=0,
  subsample=0.8,
  colsample_bytree=0.8,
  objective= 'multi:softprob',
+ reg_alpha=0.005,
  nthread=10,
  scale_pos_weight=1,
  seed=27)
