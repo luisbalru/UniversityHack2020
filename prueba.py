@@ -120,16 +120,16 @@ from sklearn.metrics import accuracy_score
 '''
 xgb1 = XGBClassifier(
  learning_rate =0.05,
- n_estimators=1600,
+ n_estimators=2000,
  max_depth=7,
- min_child_weight=2,
+ min_child_weight=3,
  gamma=0,
  subsample=0.8,
  colsample_bytree=0.8,
  objective= 'multi:softprob',
  reg_alpha=0.005,
  nthread=10,
- scale_pos_weight=1,
+ scale_pos_weight=2,
  seed=27)
 #dtrain = xgb.DMatrix(X_train,label = y_train)
 #dtest = xgb.DMatrix(X_test, )
