@@ -129,17 +129,14 @@ xgb1 = XGBClassifier(
  objective= 'multi:softprob',
  reg_alpha=0.005,
  nthread=10,
- scale_pos_weight=2,
+ scale_pos_weight=100,
  seed=27)
 
-from sklearn.model_selection import cross_val_score
-scores = cross_val_score(xgb1, X_train, y_train, cv=5)
-print(scores) 
 #dtrain = xgb.DMatrix(X_train,label = y_train)
 #dtest = xgb.DMatrix(X_test, )
-#model = xgb1.fit(X_train,y_train)
-#pred = model.predict(X_test)
-#print(accuracy_score(pred,y_test))
+model = xgb1.fit(X_train,y_train)
+pred = model.predict(X_test)
+print(accuracy_score(pred,y_test))
 '''
 ## Tune max_depth and min_child_weight
 param_test1 = {
