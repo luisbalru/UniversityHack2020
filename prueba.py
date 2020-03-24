@@ -43,20 +43,9 @@ data2 = data.drop(['ID'], axis=1)
 data2['CADASTRALQUALITYID'] = data2['CADASTRALQUALITYID'].fillna(data2['CADASTRALQUALITYID'].mode()[0])
 data2['MAXBUILDINGFLOOR'] = data2['MAXBUILDINGFLOOR'].fillna(data2['MAXBUILDINGFLOOR'].mode()[0])
 
-correladas = []
-corr = data2.corr()
-for i in range(53):
-    for j in range(53):
-        if i < j:
-            if corr.iloc[i,j] > 0.9:
-                correladas.append((i,j,corr.iloc[i,j]))
 
-print(sorted(correladas,key=lambda tup:tup[2],reverse=True)[0:10])
-
-data2.drop([7])
-
-X = data2.iloc[:,0:53]
-y = data2.iloc[:,53:54]
+X = data2.iloc[:,0:54]
+y = data2.iloc[:,54:55]
 y = np.ravel(y)
 dummiesCID = pd.get_dummies(X.CADASTRALQUALITYID)
 pca = PCA(12)
