@@ -5,7 +5,7 @@ from sklearn.decomposition import PCA
 from imblearn.over_sampling import SMOTE
 from anomaly_cleaning import cleanAnomalies
 from sklearn.model_selection import GridSearchCV
-from sklearn.feature_selection import mutual_info_classif
+from sklearn.feature_selection import SelectKBest, chi2, mutual_info_classif
 
 from sklearn import preprocessing
 import seaborn as sns
@@ -57,8 +57,8 @@ X = scaler.fit_transform(X)
 X = pd.DataFrame(X)
 X = pd.concat([X,dummiesCID],axis=1)
 X = np.array(X)
-mi = mutual_info_classif(X,y)
-print(mi)
+X_mi = SelectKBest(mutual_info_classif, k=40).fit_transform(X,y)
+X_chi = SelectKBest(chi2,k=40).fit_transform(X,y)
 '''
 X,y = SMOTE(sampling_strategy = {"INDUSTRIAL": 60000, "PUBLIC": 60000,"RETAIL":60000,"OFFICE":60000,"OTHER":60000, "AGRICULTURE":60000}, random_state=123456789, n_jobs=20, k_neighbors=5).fit_resample(X,y)
 
