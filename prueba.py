@@ -53,10 +53,10 @@ for i in range(53):
 
 print(sorted(correladas,key=lambda tup:tup[2],reverse=True)[0:10])
 
-data2.drop([7,39,41])
+data2.drop([7])
 
-X = data2.iloc[:,0:51]
-y = data2.iloc[:,51:52]
+X = data2.iloc[:,0:53]
+y = data2.iloc[:,53:54]
 y = np.ravel(y)
 dummiesCID = pd.get_dummies(X.CADASTRALQUALITYID)
 pca = PCA(12)
