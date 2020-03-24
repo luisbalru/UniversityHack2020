@@ -43,8 +43,20 @@ data2 = data.drop(['ID'], axis=1)
 data2['CADASTRALQUALITYID'] = data2['CADASTRALQUALITYID'].fillna(data2['CADASTRALQUALITYID'].mode()[0])
 data2['MAXBUILDINGFLOOR'] = data2['MAXBUILDINGFLOOR'].fillna(data2['MAXBUILDINGFLOOR'].mode()[0])
 
-X = data2.iloc[:,0:54]
-y = data2.iloc[:,54:55]
+correladas = []
+corr = data2.corr()
+for i in range(53):
+    for j in range(53):
+        if i < j:
+            if corr.iloc[i,j] > 0.9:
+                correladas.append((i,j,corr.iloc[i,j]))
+
+print(sorted(correladas,key=lambda tup:tup[2],reverse=True)[0:10])
+
+X.drop([7,39,41])
+
+X = data2.iloc[:,0:51]
+y = data2.iloc[:,51:52]
 y = np.ravel(y)
 dummiesCID = pd.get_dummies(X.CADASTRALQUALITYID)
 pca = PCA(12)
@@ -57,10 +69,10 @@ X = scaler.fit_transform(X)
 X = pd.DataFrame(X)
 X = pd.concat([X,dummiesCID],axis=1)
 X = np.array(X)
-X_mi = SelectKBest(mutual_info_classif, k=40).fit_transform(X,y)
-#X_chi = SelectKBest(chi2,k=40).fit_transform(X,y)
 
-X,y = SMOTE(sampling_strategy = {"INDUSTRIAL": 60000, "PUBLIC": 60000,"RETAIL":60000,"OFFICE":60000,"OTHER":60000, "AGRICULTURE":60000}, random_state=123456789, n_jobs=20, k_neighbors=5).fit_resample(X_mi,y)
+
+
+X,y = SMOTE(sampling_strategy = {"INDUSTRIAL": 60000, "PUBLIC": 60000,"RETAIL":60000,"OFFICE":60000,"OTHER":60000, "AGRICULTURE":60000}, random_state=123456789, n_jobs=20, k_neighbors=5).fit_resample(X,y)
 
 
 
@@ -129,3 +141,4 @@ xgb1 = XGBClassifier(
 model = xgb1.fit(X_train,y_train)
 pred = model.predict(X_test)
 print(accuracy_score(pred,y_test))
+'''
