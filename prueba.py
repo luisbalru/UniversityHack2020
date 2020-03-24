@@ -141,4 +141,3 @@ xgb1 = XGBClassifier(
 model = xgb1.fit(X_train,y_train)
 pred = model.predict(X_test)
 print(accuracy_score(pred,y_test))
-'''
