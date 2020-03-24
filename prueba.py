@@ -58,9 +58,9 @@ X = pd.DataFrame(X)
 X = pd.concat([X,dummiesCID],axis=1)
 X = np.array(X)
 X_mi = SelectKBest(mutual_info_classif, k=40).fit_transform(X,y)
-X_chi = SelectKBest(chi2,k=40).fit_transform(X,y)
-'''
-X,y = SMOTE(sampling_strategy = {"INDUSTRIAL": 60000, "PUBLIC": 60000,"RETAIL":60000,"OFFICE":60000,"OTHER":60000, "AGRICULTURE":60000}, random_state=123456789, n_jobs=20, k_neighbors=5).fit_resample(X,y)
+#X_chi = SelectKBest(chi2,k=40).fit_transform(X,y)
+
+X,y = SMOTE(sampling_strategy = {"INDUSTRIAL": 60000, "PUBLIC": 60000,"RETAIL":60000,"OFFICE":60000,"OTHER":60000, "AGRICULTURE":60000}, random_state=123456789, n_jobs=20, k_neighbors=5).fit_resample(X_mi,y)
 
 
 
@@ -112,10 +112,10 @@ from sklearn.metrics import accuracy_score
 
 xgb1 = XGBClassifier(
  learning_rate =0.1,
- n_estimators=3000,
+ n_estimators=2500,
  max_depth=10,
  min_child_weight=3,
- gamma=0.5,
+ gamma=0,
  subsample=0.8,
  colsample_bytree=0.8,
  objective= 'multi:softprob',
