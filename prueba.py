@@ -37,6 +37,7 @@ def modelfit(alg, dtrain, predictors,useTrainCV=True, cv_folds=5, early_stopping
 '''
 
 data = pd.read_csv('./data/Modelar_UH2020.txt', sep='|')
+test = pd.read_csv('./data/Estimar_UH2020.txt', sep='|')
 id_data = data.ID
 data2 = data.drop(['ID'], axis=1)
 
@@ -67,42 +68,42 @@ X,y = SMOTE(sampling_strategy = {"INDUSTRIAL": 60000, "PUBLIC": 60000,"RETAIL":6
 
 
 
-from sklearn.model_selection import train_test_split
+#from sklearn.model_selection import train_test_split
 
-X_train, X_test, y_train, y_test = train_test_split(X,y, test_size = 0.3, stratify=y,random_state=77145416)
+#X, X_test, y, y_test = train_test_split(X,y, test_size = 0.3, stratify=y,random_state=77145416)
 
 
 
 print("Cleaning anomalies...")
-ind_res = np.where(y_train=="RESIDENTIAL")[0]
-ind_ind = np.where(y_train=="INDUSTRIAL")[0]
-ind_pub = np.where(y_train=="PUBLIC")[0]
-ind_ret = np.where(y_train=="RETAIL")[0]
-ind_off = np.where(y_train=="OFFICE")[0]
-ind_ot = np.where(y_train=="OTHER")[0]
-ind_agr = np.where(y_train=="AGRICULTURE")[0]
-X1, y1 = cleanAnomalies(X_train[ind_res], y_train[ind_res])
-X2, y2 = cleanAnomalies(X_train[ind_ind], y_train[ind_ind])
-X3, y3 = cleanAnomalies(X_train[ind_pub], y_train[ind_pub])
-X4, y4 = cleanAnomalies(X_train[ind_ret], y_train[ind_ret])
-X5, y5 = cleanAnomalies(X_train[ind_off], y_train[ind_off])
-X6, y6 = cleanAnomalies(X_train[ind_ot], y_train[ind_ot])
-X7, y7 = cleanAnomalies(X_train[ind_agr], y_train[ind_agr])
-X_train = np.concatenate((X1,X2), axis=0)
-X_train = np.concatenate((X_train,X3), axis=0)
-X_train = np.concatenate((X_train,X4), axis=0)
-X_train = np.concatenate((X_train,X5), axis=0)
-X_train = np.concatenate((X_train,X6), axis=0)
-X_train = np.concatenate((X_train,X7), axis=0)
-y_train = np.concatenate((y1,y2), axis=0)
-y_train = np.concatenate((y_train,y3), axis=0)
-y_train = np.concatenate((y_train,y4), axis=0)
-y_train = np.concatenate((y_train,y5), axis=0)
-y_train = np.concatenate((y_train,y6), axis=0)
-y_train = np.concatenate((y_train,y7), axis=0)
+ind_res = np.where(y=="RESIDENTIAL")[0]
+ind_ind = np.where(y=="INDUSTRIAL")[0]
+ind_pub = np.where(y=="PUBLIC")[0]
+ind_ret = np.where(y=="RETAIL")[0]
+ind_off = np.where(y=="OFFICE")[0]
+ind_ot = np.where(y=="OTHER")[0]
+ind_agr = np.where(y=="AGRICULTURE")[0]
+X1, y1 = cleanAnomalies(X[ind_res], y[ind_res])
+X2, y2 = cleanAnomalies(X[ind_ind], y[ind_ind])
+X3, y3 = cleanAnomalies(X[ind_pub], y[ind_pub])
+X4, y4 = cleanAnomalies(X[ind_ret], y[ind_ret])
+X5, y5 = cleanAnomalies(X[ind_off], y[ind_off])
+X6, y6 = cleanAnomalies(X[ind_ot], y[ind_ot])
+X7, y7 = cleanAnomalies(X[ind_agr], y[ind_agr])
+X = np.concatenate((X1,X2), axis=0)
+X = np.concatenate((X,X3), axis=0)
+X = np.concatenate((X,X4), axis=0)
+X = np.concatenate((X,X5), axis=0)
+X = np.concatenate((X,X6), axis=0)
+X = np.concatenate((X,X7), axis=0)
+y = np.concatenate((y1,y2), axis=0)
+y = np.concatenate((y,y3), axis=0)
+y = np.concatenate((y,y4), axis=0)
+y = np.concatenate((y,y5), axis=0)
+y = np.concatenate((y,y6), axis=0)
+y = np.concatenate((y,y7), axis=0)
 
 print("Instancias por clase:")
-print(np.unique(y_train,return_counts=True))
+print(np.unique(y,return_counts=True))
 
 
 
@@ -125,8 +126,8 @@ xgb1 = XGBClassifier(
  scale_pos_weight=2,
  seed=27)
 
-#dtrain = xgb.DMatrix(X_train,label = y_train)
+#dtrain = xgb.DMatrix(X,label = y)
 #dtest = xgb.DMatrix(X_test, )
-model = xgb1.fit(X_train,y_train)
-pred = model.predict(X_test)
-print(accuracy_score(pred,y_test))
+model = xgb1.fit(X,y)
+pred_train = model.predict(X)
+print(accuracy_score(pred_train,y))
