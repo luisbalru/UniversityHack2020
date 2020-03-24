@@ -62,7 +62,7 @@ X = np.array(X)
 
 
 
-X,y = SMOTE(sampling_strategy = {"INDUSTRIAL": 60000, "PUBLIC": 60000,"RETAIL":60000,"OFFICE":60000,"OTHER":60000, "AGRICULTURE":60000}, random_state=123456789, n_jobs=20, k_neighbors=5).fit_resample(X,y)
+X,y = SMOTE(sampling_strategy = {"INDUSTRIAL": 75000, "PUBLIC": 75000,"RETAIL":75000,"OFFICE":75000,"OTHER":75000, "AGRICULTURE":75000}, random_state=123456789, n_jobs=20, k_neighbors=5).fit_resample(X,y)
 
 
 
