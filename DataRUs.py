@@ -6,6 +6,9 @@ from sklearn import preprocessing
 from sklearn.metrics import accuracy_score
 from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
+import plotly.express as px
+import plotly
+
 
 import numpy as np
 import pandas as pd
@@ -106,7 +109,7 @@ y = data2.iloc[:,54:55]
 y = np.ravel(y)
 
 # Plot sin tratamiento
-plotData(X, y, "raw")
+#plotData(X, y, "raw")
 
 ###################################################################
 # GENERACIÓN DE DUMMIES EN LA VARIABLE CATEGÓRICA CADASTRALQUALITYID
@@ -145,7 +148,7 @@ test = pd.concat([test,dummiesCID_test], axis=1)
 test = np.array(test)
 
 # Plot PCA+SCALED
-plotData(X, y, "pca-scaled")
+#plotData(X, y, "pca-scaled")
 
 ###################################################################
 # AJUSTE DEL DESBALANCEO: OVERSAMPLING CON SMOTE
@@ -155,7 +158,7 @@ print("Aplicando SMOTE")
 X,y = SMOTE(sampling_strategy = {"INDUSTRIAL": 75000, "PUBLIC": 75000,"RETAIL":75000,"OFFICE":75000,"OTHER":75000, "AGRICULTURE":75000}, random_state=123456789, n_jobs=20, k_neighbors=5).fit_resample(X,y)
 
 # Plot SMOTE
-plotData(X, y, "SMOTE")
+#plotData(X, y, "SMOTE")
 
 ##################################################################
 # LIMPIEZA DE ANOMALÍAS Y RUIDO
