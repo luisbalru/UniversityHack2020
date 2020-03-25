@@ -12,6 +12,7 @@ import pandas as pd
 # PLOTS BASADOS EN TSNE
 def plotData(X, y, route):
     X.drop(['CADASTRALQUALITYID'],axis=1)
+    print(X.info())
     X = np.array(X)
     reduced = TSNE(n_components=2, n_jobs=-1).fit_transform(X)
 
