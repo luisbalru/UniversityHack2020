@@ -109,7 +109,7 @@ y = np.ravel(y)
 
 # Plot sin tratamiento
 visX = X
-visX.drop(['CADASTRALQUALITYID'],axis=1)
+visX=visX.drop(['CADASTRALQUALITYID'],axis=1)
 plotData(visX, y, "raw")
 
 ###################################################################
