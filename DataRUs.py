@@ -5,6 +5,8 @@ from xgboost.sklearn import XGBClassifier
 from sklearn import preprocessing
 from sklearn.metrics import accuracy_score
 from sklearn.manifold import TSNE
+import matplotlib.pyplot as plt
+
 import numpy as np
 import pandas as pd
 
@@ -12,9 +14,8 @@ import pandas as pd
 # PLOTS BASADOS EN TSNE
 def plotData(X, y, route):
     X=X.drop(['CADASTRALQUALITYID'],axis=1)
-    print(X.info())
     X = np.array(X)
-    reduced = TSNE(n_components=2, n_jobs=-1).fit_transform(X)
+    reduced = TSNE(n_components=2).fit_transform(X)
 
     cl0 = np.array([reduced[i] for i in range(len(reduced)) if y[i]=="RESIDENTIAL"])
     cl1 = np.array([reduced[i] for i in range(len(reduced)) if y[i]=="INDUSTRIAL"])
