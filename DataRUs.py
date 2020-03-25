@@ -11,6 +11,7 @@ import pandas as pd
 ################################################################################
 # PLOTS BASADOS EN TSNE
 def plotData(X, y, route):
+    X = np.array(X)
     reduced = TSNE(n_components=2, n_jobs=-1).fit_transform(X)
 
     cl0 = np.array([reduced[i] for i in range(len(reduced)) if y[i]=="RESIDENTIAL"])
