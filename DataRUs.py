@@ -192,7 +192,7 @@ y = np.concatenate((y,y6), axis=0)
 y = np.concatenate((y,y7), axis=0)
 
 # Plot anomalías KNN
-plotData(X, y, "anomalias_knn")
+#plotData(pd.DataFrame(X), y, "anomalias_knn")
 print("Instancias por clase:")
 print(np.unique(y,return_counts=True))
 
