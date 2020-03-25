@@ -12,10 +12,13 @@ import pandas as pd
 
 ################################################################################
 # PLOTS BASADOS EN TSNE
+
+colors = ["red", "blue", "green", "yellow", "orange", "black", "pink"]
+
 def plotData(X, y, route):
     X=X.drop(['CADASTRALQUALITYID'],axis=1)
     X = np.array(X)
-    reduced = TSNE(n_components=2).fit_transform(X)
+    reduced = TSNE(n_components=2, n_jobs=-1).fit_transform(X)
 
     cl0 = np.array([reduced[i] for i in range(len(reduced)) if y[i]=="RESIDENTIAL"])
     cl1 = np.array([reduced[i] for i in range(len(reduced)) if y[i]=="INDUSTRIAL"])
