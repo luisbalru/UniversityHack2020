@@ -19,7 +19,6 @@ import pandas as pd
 colors = ["red", "blue", "green", "yellow", "orange", "black", "pink"]
 
 def plotData(X, y, route):
-    X=X.drop(['CADASTRALQUALITYID'],axis=1)
     X = np.array(X)
     reduced = TSNE(n_components=2, n_jobs=-1).fit_transform(X)
 
@@ -109,7 +108,9 @@ y = data2.iloc[:,54:55]
 y = np.ravel(y)
 
 # Plot sin tratamiento
-plotData(X, y, "raw")
+visX = X
+visX.drop(['CADASTRALQUALITYID'],axis=1)
+plotData(visX, y, "raw")
 
 ###################################################################
 # GENERACIÓN DE DUMMIES EN LA VARIABLE CATEGÓRICA CADASTRALQUALITYID
