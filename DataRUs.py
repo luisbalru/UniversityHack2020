@@ -204,9 +204,9 @@ xgb = XGBClassifier(
  scale_pos_weight=2,
  seed=27)
 
- model = xgb.fit(X,y)
- pred_train = model.predict(X)
- print(accuracy_score(pred_train,y)
- pred_test = model.predict(test)
- resultado = pd.DataFrame({'ID':id_test,'CLASE':pred_test})
- resultado.to_csv('UGR_Data R Us.txt',sep='|')
+model = xgb.fit(X,y)
+#pred_train = model.predict(X)
+#print(accuracy_score(pred_train,y)
+pred_test = model.predict(test)
+resultado = pd.DataFrame({'ID':id_test,'CLASE':pred_test})
+resultado.to_csv('UGR_Data R Us.txt',sep='|')
